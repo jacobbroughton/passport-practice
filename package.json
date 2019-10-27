@@ -6,9 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js",
     "client": "npm run --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,9 @@
   },
   "homepage": "https://github.com/jlbroughton88/passport-practice#readme",
   "dependencies": {
-    "express-handlebars": "^3.1.0"
+    "dotenv": "^8.2.0",
+    "express-handlebars": "^3.1.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0"
   }
 }
