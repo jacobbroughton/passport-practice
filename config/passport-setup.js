@@ -1,40 +1,42 @@
 const passport = require("passport");
-const express = require("express");
 const FacebookStrategy = require("passport-facebook").Strategy
 let User = require("../models/User");
 require("dotenv").config();
-const app = express();
 
 
 passport.serializeUser((user, done) => {
+    console.log(user.username)
     done(null, user.id)
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id, (err, user) => {
-        done(err, user);
+    User.findById(id).then((user) => {
+        done(null, user)
     })
 });
 
-passport.use(new FacebookStrategy({
-    clientID: process.env.clientID,
+
+let fbOptions = {
+        clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
     callbackURL: "http://localhost:3000/auth/facebook/callback"
-}, (accessToken, refreshToken, profile, done) => {
-    User.findOne({ userID: profile.id }, (err, user) => {
-        if(user) {
+}
+
+let fbCallback = (accessToken, refreshToken, profile, done) => {
+    User.findOne({ userID: profile.id }).then((currentUser) => {
+                if(currentUser) {
             console.log("Already a user");
-            return done(null, user)
+            done(null, currentUser)
         } else {
             new User ({
                 userID : profile.id,
-                userName : profile.displayName
-            }).save()
+                username : profile.displayName
+            }).save().then((newUser) => {
+                console.log("New user created ===>" + newUser); 
+                done(null, newUser);
+            })
         }
     })
-    // , (err, user) => {
-    //     if(!user) {
-    //         console.log("No user found!")
-    //     }
-    // }).save();
-}))
+}
+
+passport.use(new FacebookStrategy(fbOptions, fbCallback));
