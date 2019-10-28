@@ -1,2 +1,15 @@
-{{user.userID}}
-{{user.username}}
+<nav class="navBar">
+        <div class="navDiv">
+        <a href="/auth/login">Log In</a>
+    </div>
+        <div class="navDiv">
+        <a href="/auth/logout">Log out</a>
+    </div>
+    <div class="navDiv">
+        <a href="/">Home</a>
+    </div>
+    <div class="navDiv">
+        <a href="/profile">Profile</a>
+    </div>
+</nav>
+<h1>Welcome, {{user.username}}!</h1>

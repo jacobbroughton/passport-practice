@@ -1,3 +1,22 @@
+<nav class="navBar">
+    <div class="navDiv">
+        <a href="/auth/login">Log In</a>
+    </div>
+    <div class="navDiv">
+        <a href="/auth/logout">Log out</a>
+    </div>
+    <div class="navDiv">
+        <a href="/">Home</a>
+    </div>
+    <div class="navDiv">
+        <a href="/profile">Profile</a>
+    </div>
+</nav>
+
 <h1>Home</h1>
-<a href="/auth/login">Log in!</a>
-<a href="/auth/logout">Log out!</a>
+
+        {{#if user}}
+       <a href="/auth/logout">Log out!</a>
+     {{else}}
+       <a href="/auth/login">Log in!</a>
+       {{/if}}
